@@ -2,26 +2,22 @@ import { Row, Col } from 'reactstrap';
 
 import SensorCards from 'components/SensorCards';
 import { useSensorContext } from './SensorProvider';
+import { useCallback } from 'react';
 
 const Dashboard = () => {
-  const { sensors = [], setSensors, ws } = useSensorContext();
+  const { sensors = [], ws } = useSensorContext();
 
-  const handleSensors = (item) => {
-    setSensors((prevState) => {
-      const updatedSensor = prevState.map((sensor) => {
-        if (sensor.id === item.id) {
-          return { ...sensor, id: item.id, connected: !item.connected };
-        }
-
-        return sensor;
-      });
-
-      console.warn(ws);
-
-      ws.send(JSON.stringify(updatedSensor));
-      return updatedSensor;
-    });
-  };
+  const handleSensors = useCallback(
+    (item) => {
+      ws.send(
+        JSON.stringify({
+          id: item.id,
+          command: !item.connected ? 'connect' : 'disconnect',
+        }),
+      );
+    },
+    [ws],
+  );
 
   return (
     <Row>

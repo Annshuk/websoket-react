@@ -1,4 +1,10 @@
-import { createContext, useContext, useState, useEffect, useRef } from 'react';
+import {
+  createContext,
+  useContext,
+  useState,
+  useLayoutEffect,
+  useRef,
+} from 'react';
 import { node } from 'prop-types';
 
 export const context = createContext({});
@@ -19,23 +25,15 @@ const SensorProvider = ({ children }) => {
   const [sensors, setSensors] = useState([]);
   const ws = useRef(WebSocket);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     ws.current = new WebSocket('ws://localhost:5000');
-    ws.current.onopen = () => {
-      console.warn('connection opned');
-    };
-
-    ws.current.onclose = () => {
-      console.warn('connection closed');
-    };
 
     ws.current.onmessage = (event) => {
       const { data } = event;
+      const parsedSensor = JSON.parse(data);
 
-      setSensors((prevState) => [...prevState, JSON.parse(data)]);
+      setSensors((prevState) => [...prevState, parsedSensor]);
     };
-
-    console.warn('remder');
 
     return () => ws.current?.close();
   }, [ws]);
