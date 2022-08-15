@@ -11,7 +11,7 @@ const Header = () => (
     <NavbarBrand href="/">Sensors Management</NavbarBrand>
 
     <NavbarText style={{ display: 'flex', padding: '0 10px' }}>
-      Show Conntect <Switch /> Show All
+      Show All <Switch /> Show Conntect
     </NavbarText>
   </Navbar>
 );
