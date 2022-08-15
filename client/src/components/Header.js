@@ -10,11 +10,8 @@ const Header = () => (
   <Navbar>
     <NavbarBrand href="/">Sensors Management</NavbarBrand>
 
-    <NavbarText>
-      <div style={{ display: 'flex', padding: '0 10px' }}>
-        {' '}
-        Show Conntect <Switch /> Show All
-      </div>
+    <NavbarText style={{ display: 'flex', padding: '0 10px' }}>
+      Show Conntect <Switch /> Show All
     </NavbarText>
   </Navbar>
 );
