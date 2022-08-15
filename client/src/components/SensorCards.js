@@ -23,7 +23,7 @@ const SensorCards = ({ sensors = {}, onClick }) => {
         <CardText>Value : {sensors.value ? sensors.value : 'N/A'}</CardText>
         <CardFooter>
           <Button color={isConnect ? 'primary' : 'secondary'} onClick={onClick}>
-            {sensors.connected ? 'Connect' : 'Disconnect'}
+            {!sensors.connected ? 'Connect' : 'Disconnect'}
           </Button>
         </CardFooter>
       </CardBody>
