@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import {
   Card,
   CardBody,
@@ -36,4 +37,4 @@ SensorCards.propTypes = {
   onClick: func,
 };
 
-export default SensorCards;
+export default memo(SensorCards);
