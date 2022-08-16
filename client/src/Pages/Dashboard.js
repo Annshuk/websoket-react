@@ -1,5 +1,5 @@
 import { useCallback, useMemo } from 'react';
-import { Row, Col } from 'reactstrap';
+import { Row, Col, Alert } from 'reactstrap';
 
 import SensorCards from 'components/SensorCards';
 import { useSensorContext } from './SensorProvider';
@@ -39,6 +39,11 @@ const Dashboard = () => {
 
   return (
     <Row>
+      {!filteredSensors.length ? (
+        <Col>
+          <Alert color="info">No sensors Connected found!!</Alert>
+        </Col>
+      ) : null}
       {filteredSensors.map((item, index) => (
         <Col xs="12" sm="4" md="4" key={index}>
           <SensorCards sensors={item} onClick={() => handleSensors(item)} />
