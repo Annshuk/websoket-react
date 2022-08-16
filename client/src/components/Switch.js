@@ -1,18 +1,15 @@
-import { useState } from 'react';
+import { func, bool } from 'prop-types';
+
 import './switch.css';
 
-const Switch = (props) => {
-  const [value, setValue] = useState(false);
-
+const Switch = ({ onClick, value = false }) => {
   return (
     <>
       <input
         className="react-switch-checkbox"
         id={`react-switch-new`}
         type="checkbox"
-        onClick={() => {
-          setValue(!value);
-        }}
+        onClick={onClick}
       />
       <label
         className="react-switch-label"
@@ -23,6 +20,11 @@ const Switch = (props) => {
       </label>
     </>
   );
+};
+
+Switch.propTypes = {
+  onClick: func,
+  value: bool,
 };
 
 export { Switch };

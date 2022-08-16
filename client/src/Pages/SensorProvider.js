@@ -23,6 +23,10 @@ export const useSensorContext = () => {
  */
 const SensorProvider = ({ children }) => {
   const [sensors, setSensors] = useState([]);
+  const [value, setValue] = useState(false);
+
+  const handleClick = () => setValue(() => !value);
+
   const ws = useRef(WebSocket);
 
   useLayoutEffect(() => {
@@ -39,7 +43,15 @@ const SensorProvider = ({ children }) => {
   }, [ws]);
 
   return (
-    <Provider value={{ sensors, setSensors, ws: ws.current }}>
+    <Provider
+      value={{
+        sensors,
+        setSensors,
+        ws: ws.current,
+        handleClick,
+        value,
+      }}
+    >
       {children}
     </Provider>
   );

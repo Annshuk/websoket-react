@@ -9,8 +9,8 @@ import Dashboard from 'Pages/Dashboard';
  */
 const App = () => (
   <SensorProvider>
-    <Header />
     <Container fluid>
+      <Header />
       <Dashboard />
     </Container>
   </SensorProvider>
