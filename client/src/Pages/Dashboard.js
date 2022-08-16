@@ -5,10 +5,20 @@ import SensorCards from 'components/SensorCards';
 import { useSensorContext } from './SensorProvider';
 
 const Dashboard = () => {
-  const { sensors = [], ws } = useSensorContext();
+  const { sensors = [], ws, setSensors } = useSensorContext();
 
   const handleSensors = useCallback(
     ({ id, connected }) => {
+      setSensors((prev) =>
+        prev.map((sensor) => {
+          if (sensor.id === id) {
+            return { ...sensor, connected: !connected };
+          }
+
+          return sensor;
+        }),
+      );
+
       ws.send(
         JSON.stringify({
           id,
@@ -16,7 +26,7 @@ const Dashboard = () => {
         }),
       );
     },
-    [ws],
+    [ws, setSensors],
   );
 
   return (
