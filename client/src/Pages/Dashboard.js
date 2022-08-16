@@ -12,8 +12,6 @@ const Dashboard = () => {
     [sensors, value],
   );
 
-  console.warn('render', filteredSensors, value);
-
   const handleSensors = useCallback(
     ({ id, connected }) => {
       ws.send(
