@@ -9,6 +9,13 @@ const Dashboard = () => {
 
   const handleSensors = useCallback(
     ({ id, connected }) => {
+      ws.send(
+        JSON.stringify({
+          id,
+          command: !connected ? 'connect' : 'disconnect',
+        }),
+      );
+
       setSensors((prev) =>
         prev.map((sensor) => {
           if (sensor.id === id) {
@@ -18,14 +25,8 @@ const Dashboard = () => {
           return sensor;
         }),
       );
-
-      ws.send(
-        JSON.stringify({
-          id,
-          command: !connected ? 'connect' : 'disconnect',
-        }),
-      );
     },
+
     [ws, setSensors],
   );
 
