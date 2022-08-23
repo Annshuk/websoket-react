@@ -14,17 +14,17 @@ import { object, func } from 'prop-types';
  * to show sensor cards
  */
 const SensorCards = ({ sensors = {}, onClick }) => {
-  const isConnect = sensors.connected;
+  const { unit, name, value, connected } = sensors;
 
   return (
     <Card className="my-2" outline>
       <CardBody>
-        <CardTitle tag="h5">{sensors.name}</CardTitle>
-        <CardText>Unit : {sensors.unit}</CardText>
-        <CardText>Value : {sensors.value ? sensors.value : 'N/A'}</CardText>
+        <CardTitle tag="h5">{name}</CardTitle>
+        <CardText>Unit : {unit}</CardText>
+        <CardText>Value : {value ? value : 'N/A'}</CardText>
         <CardFooter>
-          <Button color={isConnect ? 'primary' : 'secondary'} onClick={onClick}>
-            {!sensors.connected ? 'Connect' : 'Disconnect'}
+          <Button color={connected ? 'primary' : 'secondary'} onClick={onClick}>
+            {!connected ? 'Connect' : 'Disconnect'}
           </Button>
         </CardFooter>
       </CardBody>
