@@ -1,11 +1,4 @@
-import {
-  createContext,
-  useContext,
-  useState,
-  useLayoutEffect,
-  useRef,
-  //useEffect,
-} from 'react';
+import { createContext, useContext, useState, useLayoutEffect } from 'react';
 import { node } from 'prop-types';
 
 export const context = createContext({});
@@ -27,27 +20,18 @@ const ws = new WebSocket('ws://localhost:5000');
 const SensorProvider = ({ children }) => {
   const [sensors, setSensors] = useState([]);
   const [value, setValue] = useState(false);
-  const sensorsRef = useRef(sensors);
 
   const handleClick = () => setValue(() => !value);
 
   useLayoutEffect(() => {
-    ws.onmessage = ({ data }) => {
+    ws.onmessage = ({ data = '{}' }) => {
       const parsedSensor = JSON.parse(data);
 
-      sensorsRef.current = parsedSensor;
-
-      setSensors((prevState) => {
-        return !sensorsRef.current.connected
-          ? [...prevState, parsedSensor]
-          : prevState.map((item) => {
-              if (item.id === parsedSensor.id && sensorsRef.current.connected) {
-                return { ...item, ...parsedSensor };
-              }
-
-              return item;
-            });
-      });
+      setSensors((prev) => [
+        ...new Map(
+          [...prev, parsedSensor].map((sensor) => [sensor.id, sensor]),
+        ).values(),
+      ]);
     };
 
     return () => ws.close();
