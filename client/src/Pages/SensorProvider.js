@@ -24,7 +24,7 @@ const SensorProvider = ({ children }) => {
   const handleClick = () => setValue(() => !value);
 
   useLayoutEffect(() => {
-    ws.onmessage = ({ data = '{}' }) => {
+    ws.onmessage = ({ data }) => {
       const parsedSensor = JSON.parse(data);
 
       setSensors((prev) => [
