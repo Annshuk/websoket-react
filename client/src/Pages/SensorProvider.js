@@ -17,7 +17,7 @@ const ws = new WebSocket('ws://localhost:5000');
  * App Provider
  *
  */
-const SensorProvider = ({ children }) => {
+const SensorProvider = () => {
   const [sensors, setSensors] = useState([]);
   const [value, setValue] = useState(false);
 
@@ -46,9 +46,7 @@ const SensorProvider = ({ children }) => {
         handleClick,
         value,
       }}
-    >
-      {children}
-    </Provider>
+    />
   );
 };
 
